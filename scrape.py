@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 base_url = "https://www.tdcj.texas.gov/death_row/dr_executed_offenders.html"
 
 def get_html(url):
-    response = requests.get(url, verify=False)  #TODO: We need to have  a .pem file so we can use verify=True
+    response = requests.get(url, verify=False)  #TODO: We need to have a .pem file so we can use verify=True
     response.raise_for_status()
     return response.text
 
@@ -24,7 +24,7 @@ def get_last_statement(html):
         # The last statement should be the next sibling <p> tag
         last_statement = last_statement_tag.find_next_sibling('p').get_text(strip=True)
         return last_statement
-    return 'None'
+    return 'N/A'
 
 def main():
     html = get_html(base_url)
