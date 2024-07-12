@@ -68,7 +68,6 @@ def save_data(links_and_dates):
             last_statement_html = get_html(last_statement_link)
         except Exception as e:
             print(e)
-
         try:
             last_statement = get_last_statement(last_statement_html)
         except Exception as e:
