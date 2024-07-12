@@ -85,8 +85,8 @@ def save_data(links_and_dates):
 
 
 def main():
-    html = get_html(base_url)
-    links_and_dates = get_inmate_links_and_date(html)
+    base_url_html = get_html(base_url)
+    links_and_dates = get_inmate_links_and_date(base_url_html)
     save_data(links_and_dates)
 
 if __name__ == "__main__":
