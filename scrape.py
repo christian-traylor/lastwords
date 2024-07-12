@@ -63,19 +63,31 @@ def save_data(links_and_dates):
         try:
             inmate_information_html = get_html(inmate_information_link)
         except Exception as e:
-            print(e)
+            if entry == 233:  # Last inmate with data in HTML table
+                break
+            entry -= 1
+            continue
         try:
             last_statement_html = get_html(last_statement_link)
         except Exception as e:
-            print(e)
+            if entry == 233:  # Last inmate with data in HTML table
+                break
+            entry -= 1
+            continue
         try:
             last_statement = get_last_statement(last_statement_html)
         except Exception as e:
-            print(e)
+            if entry == 233:  # Last inmate with data in HTML table
+                break
+            entry -= 1
+            continue
         try:
             inmate_information = get_inmate_information(inmate_information_html)
         except Exception as e:
-            print(e)
+            if entry == 233:  # Last inmate with data in HTML table
+                break
+            entry -= 1
+            continue
 
         inmate_data[entry] = {}
         inmate_data[entry]['last_statement'] = last_statement
@@ -83,7 +95,6 @@ def save_data(links_and_dates):
         inmate_data[entry]['date_executed'] = date_executed
 
         entry -= 1
-
         if entry == 233:  # Last inmate with data in HTML table
             break
 

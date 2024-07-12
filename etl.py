@@ -28,14 +28,14 @@ def extract_data(file_path):
 
 def transform_data(df):
     try:
-        df = df.dropna()
+        # df = df.dropna()
         
         df = df.rename(columns={
             'id': 'id',
             'last_statement': 'last_statement',
             'Name': 'name',
             'Date of Birth': 'date_of_birth',
-            'Education Level': 'education_level',
+            'Education Level (Highest Grade Completed)': 'education_level',
             'Age (at the time of Offense)': 'age_at_offense',
             'Race': 'race',
             'Gender': 'gender',
@@ -69,6 +69,7 @@ def load_data(df, db_name, table_name):
     try:
         conn = sqlite3.connect(db_name)
         df.to_sql(table_name, conn, if_exists='replace', index=False)
+        conn.commit()
         conn.close()
         print(f"Data loaded successfully into {table_name}")
     except sqlite3.Error as e:
@@ -76,8 +77,10 @@ def load_data(df, db_name, table_name):
 
 def main():
     data = extract_data(DATA_SOURCE_FILE)
+    print(data)
     if data is not None:
         transformed_data = transform_data(data)
+        print(transformed_data)
         if transformed_data is not None:
             load_data(transformed_data, DATABASE_NAME, TABLE_NAME)
 
